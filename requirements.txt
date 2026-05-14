@@ -10,6 +10,11 @@ numpy
 matplotlib
 dash
 plotly
+scikit-learn
+tableauhyperapi
+tableauserverclient
+pantab
+pandas
 
 # Imports for Part 04
 sense-emu

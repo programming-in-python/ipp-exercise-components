@@ -4,7 +4,7 @@
 
 Briefly describe the objectives of the Lab Module:
 
-1) 
+1) I built a thing.
 
 2) 
 

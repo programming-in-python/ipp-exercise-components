@@ -1,13 +1,16 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "debugpy",
-      "request": "launch",
-      "name": "Intro to Programming in Python - IppTestApp",
-      "program": "./ipp/app/IppTestApp.py",
-      "console": "integratedTerminal",
-      "justMyCode": false
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "debugpy",
+            "request": "launch",
+            "name": "Intro to Programming in Python - IppTestApp",
+            "program": "${workspaceFolder}/ipp/app/IppTestApp.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}:${workspaceFolder}/tests"
+            }
+        }
+    ]
 }
