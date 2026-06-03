@@ -10,6 +10,11 @@
             "justMyCode": false,
             "env": {
                 "PYTHONPATH": "${workspaceFolder}:${workspaceFolder}/tests"
+            },
+            "windows": {
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder};${workspaceFolder}/tests"
+                }
             }
         }
     ]
