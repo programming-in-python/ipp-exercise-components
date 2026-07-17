@@ -234,6 +234,12 @@ This project's associated [written instructions](https://github.com/orgs/program
 
 Please refer to the referenced [ipp-exercise-components](https://github.com/programming-in-python/ipp-exercise-components) repository for its respective usage licenses, including any external dependencies and associated references.
 
+## AI-Assisted Content
+
+Portions of this repository (primarily test cases and select utility functions) were generated with assistance from Anthropic's Claude, based on detailed specifications authored by Andrew King.
+
+Prose content (READMEs, module explanations, lab instructions) is author-written except where noted.
+
 *NOTE*
 
 If any code samples or other technology this work contains or describes is subject to open source licenses or the intellectual property rights of others, it is your responsibility to ensure that your use thereof complies with such licenses and/or rights.
