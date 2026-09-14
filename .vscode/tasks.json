@@ -1,0 +1,75 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // Runs the linter from the per-OS virtual environment's own ruff,
+            // so the check is aligned to the project interpreter regardless of
+            // which interpreter the editor has selected or a terminal has
+            // activated. The top-level command serves Linux and WSL; the osx
+            // and windows blocks override it for those hosts.
+            "label": "ruff: check",
+            "type": "process",
+            "command": "${workspaceFolder}/.venv-linux/bin/ruff",
+            "args": [
+                "check",
+                "."
+            ],
+            "osx": {
+                "command": "${workspaceFolder}/.venv-macos/bin/ruff"
+            },
+            "windows": {
+                "command": "${workspaceFolder}\\.venv-win\\Scripts\\ruff.exe"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": {
+                "owner": "ruff",
+                "fileLocation": [
+                    "autoRelative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": {
+                    "regexp": "^(.+?):(\\d+):(\\d+):\\s+(\\w+)\\s+(.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "code": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            // Reports formatting differences without rewriting files, so it is
+            // safe to run as a check. Drop the "--check" argument to apply the
+            // formatting instead.
+            "label": "ruff: format (check only)",
+            "type": "process",
+            "command": "${workspaceFolder}/.venv-linux/bin/ruff",
+            "args": [
+                "format",
+                "--check",
+                "."
+            ],
+            "osx": {
+                "command": "${workspaceFolder}/.venv-macos/bin/ruff"
+            },
+            "windows": {
+                "command": "${workspaceFolder}\\.venv-win\\Scripts\\ruff.exe"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
