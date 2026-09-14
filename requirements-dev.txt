@@ -1,0 +1,12 @@
+# Development-only dependencies for the IPP exercise-components repo.
+# These are NOT required to run the exercises or the test suite; they
+# support code-style checks during development and grading. Students do
+# not need to install this file.
+#
+# Install with:  pip install -r requirements-dev.txt
+
+# Ruff - Python linter and formatter (PEP 8 + pydocstyle), configured in
+# ruff.toml for teaching-style mode. Run from the command line only; do
+# NOT install the Ruff VS Code extension. Provenance: MIT-licensed, built
+# by Astral (astral.sh), source at https://github.com/astral-sh/ruff.
+ruff

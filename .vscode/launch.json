@@ -5,7 +5,7 @@
             "type": "debugpy",
             "request": "launch",
             "name": "Intro to Programming in Python - IppTestApp",
-            "program": "${workspaceFolder}/ipp/app/IppTestApp.py",
+            "program": "${workspaceFolder}/ipp/app/ipp_test_app.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "env": {

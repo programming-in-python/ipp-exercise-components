@@ -1,4 +1,5 @@
 # Programming in Python - An Introduction
+
 This repository contains student solutions to the exercise requirements specified in the [Programming in Python - An Introduction - Kanban Board](https://github.com/orgs/programming-in-python/projects/1/views/1).
 
 The Kanban Board provides configuration guidelines and exercises related to the *INFO 5002: Intro to Python for Information Systems* course at Northeastern University in Boston, MA, taught by [Prof. Andy King](https://andyking.me).
@@ -6,6 +7,31 @@ The Kanban Board provides configuration guidelines and exercises related to the 
 While the source code solutions contained herein (under `exercises` primarily) are expected to be implemented per the guidlines specified in the `DEV` modules within [Programming in Python - An Introduction - Kanban Board](https://github.com/orgs/programming-in-python/projects/1/views/1), the Python code (within `exercises`) should be implemented by the student taking the course.
 
 Pre-defined exercise modules and test modules will contain the requisite copyright and usage license. Students may choose to select their own for work they do exclusively themselves.
+
+
+## IMPORTANT NOTES
+
+### Coding Style
+Code styling in this repo generally adheres to [PEP 8](https://peps.python.org/pep-0008/), with minor variations where the author deemed it may be appropriate. Please note that the [Programming in Python Kanban Board](https://github.com/orgs/programming-in-python/projects/1) may contain instructions that do NOT follow [PEP 8](https://peps.python.org/pep-0008/), although a plan is in place to migrate them in the future.
+
+### Linting
+Style is checked with [Ruff](https://github.com/astral-sh/ruff), an MIT-licensed linter and formatter maintained by Astral. It is configured for teaching-style PEP 8 in `ruff.toml` and is a development-only tool, listed in `requirements-dev.txt` rather than `requirements.txt`, so it is never required to run the exercises.
+
+Run Ruff from the command line, not as an editor extension:
+
+```
+pip install -r requirements-dev.txt
+ruff check .          # report style issues
+ruff check --fix .    # apply safe fixes
+ruff format .         # normalize formatting
+```
+
+Editor integration stays on the Microsoft Python and Pylance extensions; the Ruff VS Code extension is not used.
+
+Linting is safe under this repo's test-driven structure. Ruff performs static analysis: it parses source text and never imports or executes the modules under test. A test module that imports a not-yet-written solution (for example, `labmodule06`'s tests importing a `labmodule06` solution that a student working in `labmodule05` has not created) still lints cleanly, because the import statement is valid Python regardless of whether the target exists on disk. The "unresolved import" markers you may see in the editor come from Pylance's type checker, which does resolve imports; Ruff does not, and the `try/except ImportError` guard with `@unittest.skipUnless` keeps execution from breaking at runtime.
+
+### Programming the Internet of Things (PIOT) Content
+The configuration logic was heavily informed and derived from my other course, [Programming the IoT](https://github.com/programming-the-iot), specifically the sample source code for the [Constrained Device App - CDA](https://github.com/programming-the-iot/cda-python-components). Some functionality has been altered to work better with this content. The original source and style have been also altered to align with [PEP 8](https://peps.python.org/pep-0008/).
 
 ## References
 The exercises and tests in this repository are based on the tasks specified in the [Programming in Python - An Introduction - Kanban Board](https://github.com/orgs/programming-in-python/projects/1/views/1)
@@ -25,60 +51,51 @@ The path structure in this repository is designed to be as simple as possible to
   ./__init__.py
   ./app
     ./__init__.py
-    ./IppTestApp.py
+    ./ipp_test_app.py
   ./common
     ./__init__.py
-    ./ConfigConst.py
-    ./ConfigUtil.py
-    ./Singleton.py
+    ./config_const.py
+    ./config_util.py
+    ./singleton.py
   ./exercises
     ./__init__.py
     ./labmodule01
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
+      ./__init__.py
+      ./README.md
+      ./{module(s) here}
     ./labmodule02
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule03
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule04
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule05
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule06
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule07
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule08
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule09
-        ./__init__.py
-        ./README.md
-        ./{module(s) here}
-    ./labmodule10
-        ./__init__.py
-        ./README.md
-        ./README-PROPOSAL.md
-        ./{module(s) here}
+      ./__init__.py
+      ./README.md
+      ./{module(s) here}
+    ... other lab modules
 '''
 
-### A Brief FAQ
+### Tests
+- The test folder hierarchy mimics the exercises path structure, but lives at the top level (`ipp` is the top level exercise path, while `tests` is the top level tests path).
+- All test modules follow the naming convention of `test_{filename}.py`.
+- Existing test modules: The `common`, `labmodule05`, `labmodule06`, `labmodule07`, `labmodule08`, and `labmodule09` paths include some basic Python `unittest` tests, although you are welcome to add your own.
+- Empty test modules: `labmodule01` through `labmodule04` exist as paths, but are currently empty (aside from the obligatory `__init__.py` touch file in each).
+- Tests for lab-module solutions guard their imports with `try/except ImportError` and skip the test class with `@unittest.skipUnless` until you write the module under test. A skipped test is the tooling asking whether you have written the solution yet; run the suite with `python -m unittest discover -s tests -t . -v` (note the `-v`) to see the skip reason, which names the exact file to create.
+- Tests path structure (SUBJECT TO CHANGE):
+'''
+./tests
+  ./__init__.py
+  ./common
+    ./__init__.py
+    ./DummyCredFile.cfg
+    ./EmptyTestConfig.cfg
+    ./InvalidTestConfig.cfg
+    ./test_config_util_custom.py
+    ./test_config_util_default.py
+    ./ValidTestConfig.cfg
+  ./labmodule01
+      ./__init__.py
+  ... other lab modules
+'''
+
+### FAQ
 - Why the extra `ipp` in the path name?
-  - This is to avoid possible confusion with other lib's when importing a solution from an earlier exercise into a later one. For instance, importing the `labmodule03` package requires inclusion of the `pip` package, as shown:
+  - This is to avoid possible confusion with other lib's when importing a solution from an earlier exercise into a later one. For instance, importing the `labmodule03` package requires inclusion of the `ipp` package, as shown:
   `import ipp.exercises.labmodule03 as labmodule03`
   - While this may seem to run against the principle of simplicity, it does - IMO - improve clarity.
 
@@ -87,51 +104,6 @@ The path structure in this repository is designed to be as simple as possible to
 
 - What about the `README-PROPOSAL.md` in `labmodule10`? What is it for?
   - This is the proposal template for the semester project. Students proposing a particular use case as their `labmodule10` semester project implementation should use this template to describe what they want to do, why it's important, and provide some insights into how they plan to implement the solution.
-
-### Tests
-- The `tests` path mimics the exercises path. It contains packages for each lab module, although not all lab modules will have tests. The student may choose to add their own test(s) to correspond with exercise implementations in the exercises path.
-- Tests path structure (SUBJECT TO CHANGE):
-'''
-./tests
-  ./__init__.py
-  ./common
-    ./__init__.py
-    ./test_ConfigUtilCustom.py
-    ./test_ConfigUtilDefault.py
-    ./DummyCredFile.props
-    ./EmptyTestConfig.props
-    ./ValidTestConfig.props
-  ./labmodule01
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule02
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule03
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule04
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule05
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule06
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule07
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule08
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule09
-    ./__init__.py
-    ./{test module(s) here}
-  ./labmodule10
-    ./__init__.py
-    ./{test module(s) here}
-'''
 
 ## Links, Exercises, Updates, Errata, and Clarifications
 
@@ -222,7 +194,7 @@ This repository is under active development.
 
 This project's associated [written instructions and non-source code documentation](https://github.com/orgs/programming-in-python/projects/1) - including this `README.md` file, all [Issues](https://github.com/programming-in-python/ipp-exercise-tasks/issues), and the Notes, Instructions and Cards contained within this [Kanban Board](https://github.com/orgs/programming-in-python/projects/1) - are available under the following license:
 
- - Documentation: Copyright &copy; 2025 by [Andrew D. King](https://andyking.me). Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/ " target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0 <img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a>
+ - Documentation: Copyright &copy; 2025 - 2026 by [Andrew D. King](https://andyking.me). Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/ " target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0 <img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img height="24" style="!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a>
  - See [LICENSE](https://github.com/programming-in-python/ipp-exercise-tasks/blob/main/LICENSE) for details.
 
 *Source Code Solutions and Examples - Usage and License*

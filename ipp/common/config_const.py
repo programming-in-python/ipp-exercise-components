@@ -23,10 +23,10 @@
 #
 
 """
-Configuration and other constants for use when looking up
-configuration values or when default values may be needed.
+Configuration keys and default constants used across the IPP exercises.
 
-This file is derived from: 
+Provides the named section keys, property keys, and default values used when
+looking up configuration data or when a fallback value is needed.
 """
 
 #####
@@ -76,9 +76,9 @@ EDGE         = 'Edge'
 DEVICE       = 'Device'
 SERVICE      = 'Service'
 
-IPP_TEST_APP       = "IppTestApp"
-GATEWAY_SERVICE    = GATEWAY + SERVICE
-CLOUD_SERVICE      = CLOUD + SERVICE
+IPP_TEST_APP       = "ipp_test_app"
+GATEWAY_SERVICE    = 'gateway_service'
+CLOUD_SERVICE      = 'cloud_service'
 
 #####
 # Property Names
@@ -165,7 +165,7 @@ LED_ACTUATOR_NAME        = 'Lighting'
 HUMIDIFIER_ACTUATOR_NAME = 'Humidifier'
 HVAC_ACTUATOR_NAME       = 'HVAC'
 
-SETTINGS_SECTION_NAME = 'Settings'
+SETTINGS_SECTION_NAME = 'settings'
 
 HUMIDITY_SENSOR_NAME = 'Humidifier'
 PRESSURE_SENSOR_NAME = 'BarometricPressure'
@@ -309,132 +309,132 @@ MEM_UTIL_NAME  = 'DeviceMemUtil'
 # NOTE: You may need to update these paths if you change
 # the directory structure for python-components
 
-CONFIG_FILE = 'IppConfig.props'
-CRED_FILE = 'IppCred.props'
+CONFIG_FILE = 'IppConfig.cfg'
+CRED_FILE = 'IppCred.cfg'
 DEFAULT_CONFIG_FILE_NAME = './config/' + CONFIG_FILE
 DEFAULT_CRED_FILE_NAME = './cred/' + CRED_FILE
 
-TEST_DATA_PATH_KEY = 'testDataPath'
+TEST_DATA_PATH_KEY = 'test_data_path'
 
-LOCAL   = 'Local'
-DATA    = 'Data'
-MQTT    = 'Mqtt'
+LOCAL   = 'local'
+DATA    = 'data'
+MQTT    = 'mqtt'
 
-CLOUD_GATEWAY_SERVICE = CLOUD   + '.' + GATEWAY_SERVICE
-DATA_GATEWAY_SERVICE  = DATA    + '.' + GATEWAY_SERVICE
-MQTT_GATEWAY_SERVICE  = MQTT    + '.' + GATEWAY_SERVICE
+CLOUD_GATEWAY_SERVICE = 'cloud.gateway_service'
+DATA_GATEWAY_SERVICE  = 'data.gateway_service'
+MQTT_GATEWAY_SERVICE  = 'mqtt.gateway_service'
 
-SETTINGS_KEY = 'Settings'
-TESTING_SETTINGS_KEY          = SETTINGS_KEY + '.' + 'Testing'
-SYSTEM_PERF_SETTINGS_KEY      = SETTINGS_KEY + '.' + 'SystemPerformance'
-ENVIRONMENTAL_SETTINGS_KEY    = SETTINGS_KEY + '.' + 'Environmental'
-WIND_TURBINE_SETTINGS_KEY     = SETTINGS_KEY + '.' + 'WindTurbine'
-FACTORY_WORKCELL_SETTINGS_KEY = SETTINGS_KEY + '.' + 'FactoryWorkcell'
+SETTINGS_KEY = 'settings'
+TESTING_SETTINGS_KEY          = SETTINGS_KEY + '.' + 'testing'
+SYSTEM_PERF_SETTINGS_KEY      = SETTINGS_KEY + '.' + 'system_performance'
+ENVIRONMENTAL_SETTINGS_KEY    = SETTINGS_KEY + '.' + 'environmental'
+WIND_TURBINE_SETTINGS_KEY     = SETTINGS_KEY + '.' + 'wind_turbine'
+FACTORY_WORKCELL_SETTINGS_KEY = SETTINGS_KEY + '.' + 'factory_workcell'
 
-DEVICE_ID_KEY          = 'deviceID'
-DEVICE_LOCATION_ID_KEY = 'deviceLocationID'
+DEVICE_ID_KEY          = 'device_id'
+DEVICE_LOCATION_ID_KEY = 'device_location_id'
 
-CRED_SECTION = 'Credentials'
+CRED_SECTION = 'credentials'
 
-FROM_ADDRESS_KEY     = 'fromAddr'
-TO_ADDRESS_KEY       = 'toAddr'
-TO_MEDIA_ADDRESS_KEY = 'toMediaAddr'
-TO_TXT_ADDRESS_KEY   = 'toTxtAddr'
+FROM_ADDRESS_KEY     = 'from_addr'
+TO_ADDRESS_KEY       = 'to_addr'
+TO_MEDIA_ADDRESS_KEY = 'to_media_addr'
+TO_TXT_ADDRESS_KEY   = 'to_txt_addr'
 
 HOST_KEY             = 'host'
 PORT_KEY             = 'port'
-SECURE_PORT_KEY      = 'securePort'
+SECURE_PORT_KEY      = 'secure_port'
 
 ROOT_CERT_ALIAS = 'root'
 
-KEY_STORE_CLIENT_IDENTITY_KEY = 'keyStoreClientIdentity'
-KEY_STORE_SERVER_IDENTITY_KEY = 'keyStoreServerIdentity'
+KEY_STORE_CLIENT_IDENTITY_KEY = 'key_store_client_identity'
+KEY_STORE_SERVER_IDENTITY_KEY = 'key_store_server_identity'
 
-KEY_STORE_FILE_KEY    = 'keyStoreFile'
-KEY_STORE_AUTH_KEY    = 'keyStoreAuth'
-TRUST_STORE_FILE_KEY  = 'trustStoreFile'
-TRUST_STORE_ALIAS_KEY = 'trustStoreAlias'
-TRUST_STORE_AUTH_KEY  = 'trustStoreAuth'
-USER_NAME_TOKEN_KEY   = 'userToken'
-USER_AUTH_TOKEN_KEY   = 'authToken'
-API_TOKEN_KEY         = 'apiToken'
-ORG_TOKEN_KEY         = 'orgToken'
+KEY_STORE_FILE_KEY    = 'key_store_file'
+KEY_STORE_AUTH_KEY    = 'key_store_auth'
+TRUST_STORE_FILE_KEY  = 'trust_store_file'
+TRUST_STORE_ALIAS_KEY = 'trust_store_alias'
+TRUST_STORE_AUTH_KEY  = 'trust_store_auth'
+USER_NAME_TOKEN_KEY   = 'user_token'
+USER_AUTH_TOKEN_KEY   = 'auth_token'
+API_TOKEN_KEY         = 'api_token'
+ORG_TOKEN_KEY         = 'org_token'
 
-CERT_FILE_KEY        = 'certFile'
-CRED_FILE_KEY        = 'credFile'
-ENABLE_AUTH_KEY      = 'enableAuth'
-ENABLE_CRYPT_KEY     = 'enableCrypt'
-ENABLE_SIMULATOR_KEY = 'enableSimulator'
-ENABLE_EMULATOR_KEY  = 'enableEmulator'
-ENABLE_SENSE_HAT_KEY = 'enableSenseHAT'
-ENABLE_LOGGING_KEY   = 'enableLogging'
-ENABLE_MSG_QUEUE_KEY = 'enableMsgQueue'
-ENABLE_OPERATION_KEY = 'enableOperation'
-ENABLE_DATA_GENERATION_KEY = 'enableDataGeneration'
-ENABLE_SIM_ENGINE_UPDATES = 'enableSimEngineUpdates'
-USE_WEB_ACCESS_KEY   = 'useWebAccess'
-POLL_CYCLES_KEY      = 'pollCycleSecs'
-KEEP_ALIVE_KEY       = 'keepAlive'
-DEFAULT_QOS_KEY      = 'defaultQos'
+CERT_FILE_KEY        = 'cert_file'
+CRED_FILE_KEY        = 'cred_file'
+ENABLE_AUTH_KEY      = 'enable_auth'
+ENABLE_CRYPT_KEY     = 'enable_crypt'
+ENABLE_SIMULATOR_KEY = 'enable_simulator'
+ENABLE_EMULATOR_KEY  = 'enable_emulator'
+ENABLE_SENSE_HAT_KEY = 'enable_sense_hat'
+ENABLE_LOGGING_KEY   = 'enable_logging'
+ENABLE_MSG_QUEUE_KEY = 'enable_msg_queue'
+ENABLE_OPERATION_KEY = 'enable_operation'
+ENABLE_DATA_GENERATION_KEY = 'enable_data_generation'
+ENABLE_SIM_ENGINE_UPDATES = 'enable_sim_engine_updates'
+USE_WEB_ACCESS_KEY   = 'use_web_access'
+POLL_CYCLES_KEY      = 'poll_cycle_secs'
+KEEP_ALIVE_KEY       = 'keep_alive'
+DEFAULT_QOS_KEY      = 'default_qos'
 
-ENABLE_TSDB_CLIENT_KEY = 'enableTsdbClient'
-ENABLE_MQTT_CLIENT_KEY = 'enableMqttClient'
-ENABLE_COAP_CLIENT_KEY = 'enableCoapClient'
-ENABLE_COAP_SERVER_KEY = 'enableCoapServer'
+ENABLE_TSDB_CLIENT_KEY = 'enable_tsdb_client'
+ENABLE_MQTT_CLIENT_KEY = 'enable_mqtt_client'
+ENABLE_COAP_CLIENT_KEY = 'enable_coap_client'
+ENABLE_COAP_SERVER_KEY = 'enable_coap_server'
 
-ENABLE_ROBOTIC_MANIPULATOR_KEY = 'enableRoboticManipulator'
-ENABLE_CONVEYOR_KEY = 'enableConveyor'
-ENABLE_HOPPER_KEY = 'enableHopper'
-ENABLE_PALLET_LOADING_KEY = 'enablePalletLoading'
+ENABLE_ROBOTIC_MANIPULATOR_KEY = 'enable_robotic_manipulator'
+ENABLE_CONVEYOR_KEY = 'enable_conveyor'
+ENABLE_HOPPER_KEY = 'enable_hopper'
+ENABLE_PALLET_LOADING_KEY = 'enable_pallet_loading'
 
-ENABLE_POWER_GENERATION_KEY = 'enablePowerGeneration'
-ENABLE_SYSTEM_PERF_KEY  = 'enableSystemPerformance'
-ENABLE_ACTUATION_KEY    = 'enableActuation'
-ENABLE_SENSING_KEY      = 'enableSensing'
-ENABLE_COMMAND_NAME_KEY = 'enableCommandName'
+ENABLE_POWER_GENERATION_KEY = 'enable_power_generation'
+ENABLE_SYSTEM_PERF_KEY  = 'enable_system_performance'
+ENABLE_ACTUATION_KEY    = 'enable_actuation'
+ENABLE_SENSING_KEY      = 'enable_sensing'
+ENABLE_COMMAND_NAME_KEY = 'enable_command_name'
 
-SEND_EVENT_DISPLAY_UPDATES_KEY = 'sendEventDisplayUpdates'
-UPDATE_DISPLAY_ON_ACTUATION_KEY = 'updateDisplayOnActuation'
+SEND_EVENT_DISPLAY_UPDATES_KEY = 'send_event_display_updates'
+UPDATE_DISPLAY_ON_ACTUATION_KEY = 'update_display_on_actuation'
 
-MIN_WIND_SPEED_KEY       = 'minWindSpeed'
-MAX_WIND_SPEED_KEY       = 'maxWindSpeed'
+MIN_WIND_SPEED_KEY       = 'min_wind_speed'
+MAX_WIND_SPEED_KEY       = 'max_wind_speed'
 
-HUMIDITY_SIM_FLOOR_KEY   = 'humiditySimFloor'
-HUMIDITY_SIM_CEILING_KEY = 'humiditySimCeiling'
-PRESSURE_SIM_FLOOR_KEY   = 'pressureSimFloor'
-PRESSURE_SIM_CEILING_KEY = 'pressureSimCeiling'
-TEMP_SIM_FLOOR_KEY       = 'tempSimFloor'
-TEMP_SIM_CEILING_KEY     = 'tempSimCeiling'
+HUMIDITY_SIM_FLOOR_KEY   = 'humidity_sim_floor'
+HUMIDITY_SIM_CEILING_KEY = 'humidity_sim_ceiling'
+PRESSURE_SIM_FLOOR_KEY   = 'pressure_sim_floor'
+PRESSURE_SIM_CEILING_KEY = 'pressure_sim_ceiling'
+TEMP_SIM_FLOOR_KEY       = 'temp_sim_floor'
+TEMP_SIM_CEILING_KEY     = 'temp_sim_ceiling'
 
-HANDLE_TEMP_CHANGE_ON_DEVICE_KEY = 'handleTempChangeOnDevice'
-TRIGGER_HVAC_TEMP_FLOOR_KEY      = 'triggerHvacTempFloor'
-TRIGGER_HVAC_TEMP_CEILING_KEY    = 'triggerHvacTempCeiling'
+HANDLE_TEMP_CHANGE_ON_DEVICE_KEY = 'handle_temp_change_on_device'
+TRIGGER_HVAC_TEMP_FLOOR_KEY      = 'trigger_hvac_temp_floor'
+TRIGGER_HVAC_TEMP_CEILING_KEY    = 'trigger_hvac_temp_ceiling'
 
-MIN_PRODUCTION_RATE_KEY = 'minProductionRate'
-MAX_PRODUCTION_RATE_KEY = 'maxProductionRate'
-DEFAULT_PRODUCTION_RATE_KEY = 'defaultProductionRate'
+MIN_PRODUCTION_RATE_KEY = 'min_production_rate'
+MAX_PRODUCTION_RATE_KEY = 'max_production_rate'
+DEFAULT_PRODUCTION_RATE_KEY = 'default_production_rate'
 
-RUN_FOREVER_KEY    = 'runForever'
-TEST_EMPTY_APP_KEY = 'testEmptyApp'
+RUN_FOREVER_KEY    = 'run_forever'
+TEST_EMPTY_APP_KEY = 'test_empty_app'
 
-STREAM_HOST_ADDR_KEY       = 'streamHostAddr'
-STREAM_HOST_LABEL_KEY      = 'streamHostLabel'
-STREAM_PORT_KEY            = 'streamPort'
-STREAM_PROTOCOL_KEY        = 'streamProtocol'
-STREAM_PATH_KEY            = 'streamPath'
-STREAM_ENCODING_KEY        = 'streamEncoding'
-STREAM_FRAME_WIDTH_KEY     = 'streamFrameWidth'
-STREAM_FRAME_HEIGHT_KEY    = 'streamFrameHeight'
-STREAM_FPS_KEY             = 'streamFps'
-IMAGE_FILE_EXT_KEY         = 'imageFileExt'
-VIDEO_FILE_EXT_KEY         = 'videoFileExt'
-MIN_MOTION_PIXELS_DIFF_KEY = 'minMotionPixelsDiff'
+STREAM_HOST_ADDR_KEY       = 'stream_host_addr'
+STREAM_HOST_LABEL_KEY      = 'stream_host_label'
+STREAM_PORT_KEY            = 'stream_port'
+STREAM_PROTOCOL_KEY        = 'stream_protocol'
+STREAM_PATH_KEY            = 'stream_path'
+STREAM_ENCODING_KEY        = 'stream_encoding'
+STREAM_FRAME_WIDTH_KEY     = 'stream_frame_width'
+STREAM_FRAME_HEIGHT_KEY    = 'stream_frame_height'
+STREAM_FPS_KEY             = 'stream_fps'
+IMAGE_FILE_EXT_KEY         = 'image_file_ext'
+VIDEO_FILE_EXT_KEY         = 'video_file_ext'
+MIN_MOTION_PIXELS_DIFF_KEY = 'min_motion_pixels_diff'
 
-IMAGE_ENCODING_KEY         = 'imageEncoding'
-IMAGE_DATA_STORE_PATH      = 'imageDataStorePath'
-VIDEO_DATA_STORE_PATH      = 'videoDataStorePath'
-MIN_MOTION_PIXELS_DIFF_KEY = 'minMotionPixelsDiff'
-MAX_MOTION_FRAMES_BEFORE_ACTION_KEY = 'maxMotionFramesBeforeAction'
-MAX_CACHED_FRAMES_KEY      = 'maxCachedFrames'
-STORE_INTERIM_FRAMES_KEY   = 'storeInterimFrames'
-INCLUDE_RAW_IMAGE_DATA_IN_MSG_KEY = 'includeRawImageDataInMsg'
+IMAGE_ENCODING_KEY         = 'image_encoding'
+IMAGE_DATA_STORE_PATH      = 'image_data_store_path'
+VIDEO_DATA_STORE_PATH      = 'video_data_store_path'
+MIN_MOTION_PIXELS_DIFF_KEY = 'min_motion_pixels_diff'
+MAX_MOTION_FRAMES_BEFORE_ACTION_KEY = 'max_motion_frames_before_action'
+MAX_CACHED_FRAMES_KEY      = 'max_cached_frames'
+STORE_INTERIM_FRAMES_KEY   = 'store_interim_frames'
+INCLUDE_RAW_IMAGE_DATA_IN_MSG_KEY = 'include_raw_image_data_in_msg'

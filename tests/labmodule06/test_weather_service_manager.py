@@ -22,42 +22,50 @@
 # SOFTWARE.
 #
 
+from __future__ import annotations
+
 import datetime
 import logging
 import time
 import unittest
 
 try:
-	from ipp.exercises.labmodule05.LocationData import LocationData
-	from ipp.exercises.labmodule05.TimeAndDateUtil import TimeAndDateUtil
-	from ipp.exercises.labmodule05.WeatherData import WeatherData
+    from ipp.exercises.labmodule05.location_data import LocationData
+    from ipp.exercises.labmodule05.time_and_date_util import TimeAndDateUtil
+    from ipp.exercises.labmodule05.weather_data import WeatherData
 
-	from ipp.exercises.labmodule06.WeatherServiceManager import WeatherServiceManager
-	MODULE_AVAILABLE = True
+    from ipp.exercises.labmodule06.weather_service_manager import WeatherServiceManager
+    MODULE_AVAILABLE = True
 except ImportError:
-	MODULE_AVAILABLE = False
+    MODULE_AVAILABLE = False
 
-@unittest.skipUnless(MODULE_AVAILABLE, "LocationData, TimeAndDataUtil, WeatherData, WeatherServiceManager not yet implemented")
+SKIP_REASON = (
+    "Solution not yet implemented. Create "
+    "ipp/exercises/labmodule06/weather_service_manager.py."
+)
+
+
+@unittest.skipUnless(MODULE_AVAILABLE, SKIP_REASON)
 class WeatherServiceManagerTest(unittest.TestCase):
 
-	@classmethod
-	def setUpClass(self):
-		logging.basicConfig(format = '%(asctime)s:%(module)s:%(levelname)s:%(message)s', level = logging.DEBUG)
-		logging.info("Testing WeatherServiceManager class...")
-		
-	def setUp(self):
-		self.weatherSvcMgr = WeatherServiceManager()
+    @classmethod
+    def setUpClass(self):
+        logging.basicConfig(format = '%(asctime)s:%(module)s:%(levelname)s:%(message)s', level = logging.DEBUG)
+        logging.info("Testing WeatherServiceManager class...")
+        
+    def setUp(self):
+        self.weather_svc_mgr = WeatherServiceManager()
 
-	def tearDown(self):
-		pass
-	
-	def testWeatherServiceManagerExecution(self):
-		self.weatherSvcMgr.startManager()
+    def tearDown(self):
+        pass
+    
+    def test_weather_service_manager_execution(self):
+        self.weather_svc_mgr.start_manager()
 
-		# run for ~2 minutes
-		time.sleep(120)
+        # run for ~2 minutes
+        time.sleep(120)
 
-		self.weatherSvcMgr.stopManager()
-		
-		# TODO: Add other tests if you'd like
-	
+        self.weather_svc_mgr.stop_manager()
+        
+        # TODO: Add other tests if you'd like
+    

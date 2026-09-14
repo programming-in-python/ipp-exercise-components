@@ -22,16 +22,24 @@
 # SOFTWARE.
 #
 
+from __future__ import annotations
+
 import sys
 import unittest
 
 try:
-    from ipp.exercises.labmodule09.SimpleBubbleSort import SimpleBubbleSort
+    from ipp.exercises.labmodule09.simple_bubble_sort import SimpleBubbleSort
     MODULE_AVAILABLE = True
 except ImportError:
-	MODULE_AVAILABLE = False
+    MODULE_AVAILABLE = False
 
-@unittest.skipUnless(MODULE_AVAILABLE, "SimpleBubbleSort not yet implemented")
+SKIP_REASON = (
+    "Solution not yet implemented. Create "
+    "ipp/exercises/labmodule09/simple_bubble_sort.py."
+)
+
+
+@unittest.skipUnless(MODULE_AVAILABLE, SKIP_REASON)
 class SimpleBubbleSortTest(unittest.TestCase):
     """
     Unit tests for SimpleBubbleSort implementation.
@@ -43,7 +51,7 @@ class SimpleBubbleSortTest(unittest.TestCase):
         """
         self.sorter = SimpleBubbleSort()
     
-    def testEmptyList(self):
+    def test_empty_list(self):
         """
         Test sorting an empty list.
         """
@@ -53,9 +61,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testSingleElement(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_single_element(self):
         """
         Test sorting a list with single element.
         """
@@ -65,9 +73,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testAlreadySorted(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_already_sorted(self):
         """
         Test sorting an already sorted list.
         """
@@ -77,9 +85,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testReverseSorted(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_reverse_sorted(self):
         """
         Test sorting a reverse sorted list.
         """
@@ -89,9 +97,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testRandomNumbers(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_random_numbers(self):
         """
         Test sorting random integers.
         """
@@ -101,9 +109,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testNegativeNumbers(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_negative_numbers(self):
         """
         Test sorting with negative numbers.
         """
@@ -113,9 +121,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testDuplicateValues(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_duplicate_values(self):
         """
         Test sorting with duplicate values.
         """
@@ -125,9 +133,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testStringSorting(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_string_sorting(self):
         """
         Test sorting strings alphabetically.
         """
@@ -137,9 +145,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testFloatingPointNumbers(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_floating_point_numbers(self):
         """
         Test sorting floating point numbers.
         """
@@ -149,9 +157,9 @@ class SimpleBubbleSortTest(unittest.TestCase):
         
         self.assertEqual(result, expected)
     
-		# TODO: Add other tests if you'd like
-	
-    def testOriginalListUnchanged(self):
+        # TODO: Add other tests if you'd like
+    
+    def test_original_list_unchanged(self):
         """
         Test that the original list is not modified.
         """
@@ -164,7 +172,7 @@ class SimpleBubbleSortTest(unittest.TestCase):
         # Result should be sorted
         self.assertEqual(result, [1, 1, 3, 4, 5])
 
-		# TODO: Add other tests if you'd like	
+        # TODO: Add other tests if you'd like    
 
 def main():
     """

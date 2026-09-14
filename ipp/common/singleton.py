@@ -23,15 +23,18 @@
 #
 
 class Singleton(type):
-	"""
-	Metaclass definition for sub-classes that must be Singleton instances.
-	
-	"""
-	_instances = {}
-	
-	def __call__(c, *args, **kwargs):
-		if c not in c._instances:
-			c._instances[c] = super(Singleton, c).__call__(*args, **kwargs)
-			
-		return c._instances[c]
-	
+    """
+    Metaclass for classes that must exist as a single shared instance.
+    """
+
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        """
+        Return the existing instance for ``cls``, creating it on first use.
+        """
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+
+        return cls._instances[cls]
+    
