@@ -11,24 +11,26 @@ Pre-defined exercise modules and test modules will contain the requisite copyrig
 
 ## IMPORTANT NOTES
 
+### Virtual Environments
+Create a Python virtual environment before installing dependencies, and name it for your operating system: `.venv-win` on Windows 11, `.venv-linux` on WSL or native Linux, and `.venv-macos` on macOS. The per-OS name matters when a single checkout lives on a drive shared between Windows 11 and WSL, because both hosts see the same physical folder yet need different interpreters; a plain `.venv` cannot serve both. Most students work on one OS and create a single environment; the same naming pattern still applies, so you learn one convention that scales to the shared-drive case.
+
+The included helper builds the correctly named environment for whichever OS you run it on:
+
+```
+python scripts/make_venv.py
+```
+
+It maps the host OS to the right suffix, creates `.venv-<os>` at the repository root, and prints the activation command and the dependency-install step. Pass `--recreate` to rebuild an environment that already exists. To do it by hand instead, run `python -m venv .venv-linux` (substituting `.venv-win` or `.venv-macos` for your OS).
+
+VS Code selects the matching environment on its own. With one environment present it is discovered when the workspace opens, and `.vscode/launch.json` pins the correct per-OS interpreter so that Run and Debug always use it. All `.venv*` folders are ignored by Git.
+
 ### Coding Style
 Code styling in this repo generally adheres to [PEP 8](https://peps.python.org/pep-0008/), with minor variations where the author deemed it may be appropriate. Please note that the [Programming in Python Kanban Board](https://github.com/orgs/programming-in-python/projects/1) may contain instructions that do NOT follow [PEP 8](https://peps.python.org/pep-0008/), although a plan is in place to migrate them in the future.
 
 ### Linting
-Style is checked with [Ruff](https://github.com/astral-sh/ruff), an MIT-licensed linter and formatter maintained by Astral. It is configured for teaching-style PEP 8 in `ruff.toml` and is a development-only tool, listed in `requirements-dev.txt` rather than `requirements.txt`, so it is never required to run the exercises.
+Style is checked with [Ruff](https://github.com/astral-sh/ruff), configured for teaching-style PEP 8 in `ruff.toml`. It is a development-only tool (in `requirements-dev.txt`, not `requirements.txt`) and runs from the command line, not as an editor extension. See [README-LINTER.md](README-LINTER.md) for the full rationale, the rule set, and why linting is safe under the test-driven exercise structure.
 
-Run Ruff from the command line, not as an editor extension:
-
-```
-pip install -r requirements-dev.txt
-ruff check .          # report style issues
-ruff check --fix .    # apply safe fixes
-ruff format .         # normalize formatting
-```
-
-Editor integration stays on the Microsoft Python and Pylance extensions; the Ruff VS Code extension is not used.
-
-Linting is safe under this repo's test-driven structure. Ruff performs static analysis: it parses source text and never imports or executes the modules under test. A test module that imports a not-yet-written solution (for example, `labmodule06`'s tests importing a `labmodule06` solution that a student working in `labmodule05` has not created) still lints cleanly, because the import statement is valid Python regardless of whether the target exists on disk. The "unresolved import" markers you may see in the editor come from Pylance's type checker, which does resolve imports; Ruff does not, and the `try/except ImportError` guard with `@unittest.skipUnless` keeps execution from breaking at runtime.
+In VS Code, `Terminal` &rarr; `Run Task` &rarr; `ruff: check` (or the default build shortcut, Ctrl+Shift+B on Windows and Linux, Cmd+Shift+B on macOS) runs the linter from the per-OS virtual environment defined in `.vscode/tasks.json`, so the check always uses the project interpreter. A companion `ruff: format (check only)` task reports formatting differences without rewriting files.
 
 ### Programming the Internet of Things (PIOT) Content
 The configuration logic was heavily informed and derived from my other course, [Programming the IoT](https://github.com/programming-the-iot), specifically the sample source code for the [Constrained Device App - CDA](https://github.com/programming-the-iot/cda-python-components). Some functionality has been altered to work better with this content. The original source and style have been also altered to align with [PEP 8](https://peps.python.org/pep-0008/).
@@ -208,7 +210,7 @@ Please refer to the referenced [ipp-exercise-components](https://github.com/prog
 
 ## AI-Assisted Content
 
-Portions of this repository (primarily test cases and select utility functions) were generated with assistance from Anthropic's Claude, based on detailed specifications authored by Andrew King.
+The design and originating code in this repository are the author's, the latter derived from the hand-coded Programming the IoT Constrained Device App. Portions (primarily the test scaffolding, the conversion of the sample and configuration code to PEP 8, and the linter configuration) were generated with assistance from Anthropic's Claude, based on detailed specifications authored by Andrew King.
 
 Prose content (READMEs, module explanations, lab instructions) is author-written except where noted.
 

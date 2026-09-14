@@ -22,29 +22,36 @@
 # SOFTWARE.
 #
 
+"""
+Load and read the course configuration file.
+
+Wraps the standard-library ``configparser`` behind a small Singleton so
+every caller shares one loaded configuration.
+"""
+
 import configparser
 import logging
 import os
 import traceback
-
 from pathlib import Path
 
+from ipp.common import config_const
 from ipp.common.singleton import Singleton
 
-import ipp.common.config_const as config_const
 
-class ConfigUtil(metaclass = Singleton):
+class ConfigUtil(metaclass=Singleton):
     """
     A simple wrapper around the built-in Python configuration infrastructure.
 
     Implemented as a Singleton via the ``Singleton`` metaclass, so every caller
     shares one loaded configuration.
     """
+
     enable_config_file_search = True
 
-    config_file   = None
+    config_file = None
     config_parser = configparser.ConfigParser()
-    is_loaded     = False
+    is_loaded = False
 
     failed_load_counter = 0
 
@@ -87,16 +94,23 @@ class ConfigUtil(metaclass = Singleton):
             The credential properties, or ``None`` when the section or file
             does not exist.
         """
-        if (self.has_section(section)):
+        if self.has_section(section):
             cred_file_name = self.get_property(section, config_const.CRED_FILE_KEY)
 
             try:
                 if os.path.exists(cred_file_name) and os.path.isfile(cred_file_name):
-                    logging.info("Loading credentials from section " + section + " and file " + cred_file_name)
+                    logging.info(
+                        "Loading credentials from section "
+                        + section
+                        + " and file "
+                        + cred_file_name
+                    )
 
                     # read cred data and dump it into a custom section for parsing
-                    file_ref  = Path(cred_file_name)
-                    cred_data = "[" + config_const.CRED_SECTION + "]\n" + file_ref.read_text()
+                    file_ref = Path(cred_file_name)
+                    cred_data = (
+                        "[" + config_const.CRED_SECTION + "]\n" + file_ref.read_text()
+                    )
 
                     # create unique ConfigParser that preserves key case
                     cred_parser = configparser.ConfigParser()
@@ -112,11 +126,22 @@ class ConfigUtil(metaclass = Singleton):
                     logging.warning("Credential file doesn't exist: " + cred_file_name)
             except Exception as e:
                 traceback.print_exc()
-                logging.warning("Failed to load credentials from file: " + cred_file_name + ". Exception: " + str(e))
+                logging.warning(
+                    "Failed to load credentials from file: "
+                    + cred_file_name
+                    + ". Exception: "
+                    + str(e)
+                )
 
         return None
 
-    def get_property(self, section: str, key: str, default_val: str = None, force_reload: bool = False):
+    def get_property(
+        self,
+        section: str,
+        key: str,
+        default_val: str = None,
+        force_reload: bool = False,
+    ):
         """
         Return the value of ``key`` from the given config section.
 
@@ -129,7 +154,7 @@ class ConfigUtil(metaclass = Singleton):
         Returns:
             The value associated with ``key`` in ``section``.
         """
-        return self._get_config(force_reload).get(section, key, fallback = default_val)
+        return self._get_config(force_reload).get(section, key, fallback=default_val)
 
     def get_boolean(self, section: str, key: str, force_reload: bool = False):
         """
@@ -144,9 +169,11 @@ class ConfigUtil(metaclass = Singleton):
             The boolean associated with ``key`` in ``section``, or ``False``
             when it is absent or not truthy.
         """
-        return self._get_config(force_reload).getboolean(section, key, fallback = False)
+        return self._get_config(force_reload).getboolean(section, key, fallback=False)
 
-    def get_integer(self, section: str, key: str, default_val: int = 0, force_reload: bool = False):
+    def get_integer(
+        self, section: str, key: str, default_val: int = 0, force_reload: bool = False
+    ):
         """
         Return the integer value of ``key`` from the given config section.
 
@@ -159,9 +186,15 @@ class ConfigUtil(metaclass = Singleton):
         Returns:
             The integer associated with ``key`` in ``section``.
         """
-        return self._get_config(force_reload).getint(section, key, fallback = default_val)
+        return self._get_config(force_reload).getint(section, key, fallback=default_val)
 
-    def get_float(self, section: str, key: str, default_val: float = 0.0, force_reload: bool = False):
+    def get_float(
+        self,
+        section: str,
+        key: str,
+        default_val: float = 0.0,
+        force_reload: bool = False,
+    ):
         """
         Return the float value of ``key`` from the given config section.
 
@@ -174,7 +207,9 @@ class ConfigUtil(metaclass = Singleton):
         Returns:
             The float associated with ``key`` in ``section``.
         """
-        return self._get_config(force_reload).getfloat(section, key, fallback = default_val)
+        return self._get_config(force_reload).getfloat(
+            section, key, fallback=default_val
+        )
 
     def has_property(self, section: str, key: str) -> bool:
         """
@@ -222,7 +257,7 @@ class ConfigUtil(metaclass = Singleton):
         Returns:
             The parsed configuration object.
         """
-        if (self.is_loaded == False or force_reload):
+        if not self.is_loaded or force_reload:
             self._load_config()
 
         return self.config_parser
@@ -231,19 +266,19 @@ class ConfigUtil(metaclass = Singleton):
         """
         Load the config file named on the constructor, or search for a default.
         """
-        if (self.failed_load_counter == 0):
-            if (self.config_file):
+        if self.failed_load_counter == 0:
+            if self.config_file:
                 # try to load the config file requested
                 self._load_config_file(self.config_file)
 
-            elif (self.enable_config_file_search):
+            elif self.enable_config_file_search:
                 # if no config file is specified, search upwards for the
                 # 'config' path and - if found - try to load the default
                 # config file name (config_const.CONFIG_FILE)
                 logging.info("Attempting to locate %s.", config_const.CONFIG_FILE)
                 self._locate_and_init_default_config_file_name()
 
-        if (not self.is_loaded):
+        if not self.is_loaded:
             self.failed_load_counter += 1
 
     def _load_config_file(self, config_file: str):
@@ -253,8 +288,8 @@ class ConfigUtil(metaclass = Singleton):
         Args:
             config_file: The path of the configuration file to read.
         """
-        if (config_file):
-            if (os.path.exists(config_file)):
+        if config_file:
+            if os.path.exists(config_file):
                 logging.info("Attempting to load config file: %s", config_file)
 
                 try:
@@ -264,13 +299,19 @@ class ConfigUtil(metaclass = Singleton):
                     # set the configuration file
                     self.config_file = config_file
 
-                    logging.info("Successfully loaded configuration at %s.", self.config_file)
+                    logging.info(
+                        "Successfully loaded configuration at %s.", self.config_file
+                    )
                     logging.debug("Config: %s", str(self.config_parser.sections()))
 
-                except:
-                    logging.error("Failed to load requested config file at %s.", config_file)
+                except Exception:
+                    logging.error(
+                        "Failed to load requested config file at %s.", config_file
+                    )
             else:
-                logging.error("No file exists for requested config file %s.", config_file)
+                logging.error(
+                    "No file exists for requested config file %s.", config_file
+                )
 
     def _locate_and_init_default_config_file_name(self):
         """
@@ -281,16 +322,13 @@ class ConfigUtil(metaclass = Singleton):
         parent_path_count = len(parent_paths)
 
         for i in range(parent_path_count):
-            config_file = \
-                os.path.abspath( \
-                    os.path.join( \
-                        parent_paths[i], \
-                        'config', \
-                        config_const.CONFIG_FILE))
+            config_file = os.path.abspath(
+                os.path.join(parent_paths[i], "config", config_const.CONFIG_FILE)
+            )
 
             logging.info("Searching path %s for config file.", config_file)
 
-            if (os.path.exists(config_file)):
+            if os.path.exists(config_file):
                 logging.info("Found configuration file at %s", config_file)
 
                 self._load_config_file(config_file)

@@ -1,19 +1,19 @@
 # Intro to Programming in Python paths and files to ignore in Git
 
 # IMPORTANT: Be sure to add your virtual env path here if
-# it is created within your ipp-exercise-components path
+# it is created within your ipp-exercise-components path.
+#
+# Virtual environments are named per OS (.venv-win, .venv-linux,
+# .venv-macos) so that a single checkout on a drive shared between
+# Windows 11 and WSL can hold a distinct venv for each host. The
+# .venv* glob (no trailing slash) covers the plain .venv default and
+# the per-OS family, both as top-level names and as path prefixes.
+.venv*
 **/*.idea
 **/*.pyc
 **/cert
 **/cred
-**/venv
-**/wsl-venv
-**/win-venv
-**/osx-venv
-**/jupyter-venv
-**/ipp-venv
 **/.DS_Store
-.venv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export PYTHONPATH=.)",
+      "Bash(python3 -m pytest -q)",
+      "Bash(python3 -m pytest -q --continue-on-collection-errors)",
+      "Bash(git checkout *)",
+      "Bash(git mv *)",
+      "Bash(python3 -)",
+      "Bash(grep -E 'test_.*\\\\.py$')"
+    ]
+  }
+}
