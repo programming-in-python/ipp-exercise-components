@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Claude Code local settings (per-user permissions and overrides;
+# the shared .claude/settings.json, if present, is still tracked)
+.claude/settings.local.json
